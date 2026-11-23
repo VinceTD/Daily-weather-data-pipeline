@@ -1,0 +1,12 @@
+# Python environment and generated files
+
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+#local secrets
+.env
+
+#Runtime output
+logs/
