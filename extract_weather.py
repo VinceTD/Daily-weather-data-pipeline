@@ -24,7 +24,11 @@ def main():
 	
 	records = []
 	for timestamp, temperature, precipitation in zip(timestamps, temperatures, precipitations, strict=True):
-	
+		
+		if temperature is None:
+			print(f"Skipping {timestamp}: missing temperature")
+			continue
+			
 		record = {
 			"timestamp": timestamp,
 			"temperature_c": temperature,
@@ -32,7 +36,8 @@ def main():
 			}
 		records.append(record)
 	print(len(records))
-	print(records[0])
+	if records:
+		print(records[0])
 
 if __name__ == "__main__":
 	main()
