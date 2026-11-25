@@ -1,7 +1,7 @@
 # Weather Data Pipeline
 
 ## Purpose
-People interested in moving or touring Chicago for the season will be interested in this data.
+This data will be relevant to people interested in moving to or touring Chicago.
 Historical data will contextualize current weather conditions.
 
 ## Data source
