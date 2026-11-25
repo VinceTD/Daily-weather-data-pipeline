@@ -1,5 +1,26 @@
 import requests
 
+def build_records(data):
+	hourly = data["hourly"]
+	timestamps = hourly["time"]
+	temperatures = hourly["temperature_2m"]
+	precipitations = hourly["precipitation"]
+
+	records = []
+	for timestamp, temperature, precipitation in zip(timestamps, temperatures, precipitations, strict=True):
+
+                if temperature is None:
+                        print(f"Skipping {timestamp}: missing temperature")
+                        continue
+
+                record = {
+                        "timestamp": timestamp,
+                        "temperature_c": temperature,
+                        "precipitation_mm": precipitation,
+                        }
+                records.append(record)
+	return records
+
 def main():
 	URL = "https://api.open-meteo.com/v1/forecast"
 	params = {
@@ -17,24 +38,8 @@ def main():
 	print(response.status_code)
 	data = response.json()
 	print(data["hourly_units"])
-	hourly = data["hourly"]
-	timestamps = hourly["time"]
-	temperatures = hourly["temperature_2m"]
-	precipitations = hourly["precipitation"]
-	
-	records = []
-	for timestamp, temperature, precipitation in zip(timestamps, temperatures, precipitations, strict=True):
-		
-		if temperature is None:
-			print(f"Skipping {timestamp}: missing temperature")
-			continue
-			
-		record = {
-			"timestamp": timestamp,
-			"temperature_c": temperature,
-			"precipitation_mm": precipitation,
-			}
-		records.append(record)
+	records = build_records(data)
+
 	print(len(records))
 	if records:
 		print(records[0])
